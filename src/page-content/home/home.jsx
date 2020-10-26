@@ -1,25 +1,29 @@
-import { memo } from 'react'
-import Head from 'next/head'
 import {
-  Layout,
+  Button,
   Col,
+  Divider,
+  Layout,
+  Row,
+  Select,
   Space,
   Typography,
-  Divider,
-  Select,
-  Button,
-  Row,
 } from 'antd'
+import Head from 'next/head'
+import { memo } from 'react'
+import { useDispatch } from 'react-redux'
 
-import { Container, ContentGrid, Controls, Header } from './home.styled'
 import Card from 'src/component/card/card'
+import { flipCard } from 'src/store/actions'
 import { range } from 'src/utils/range'
+import { Container, ContentGrid, Controls, Header } from './home.styled'
 
 const { Title } = Typography
 const { Content, Sider } = Layout
 const { Option } = Select
 
 const Home = memo(function Home() {
+  const dispatch = useDispatch()
+
   return (
     <Container>
       <Head>
@@ -32,6 +36,10 @@ const Home = memo(function Home() {
       </Head>
 
       <Header>
+        <button onClick={() => dispatch(flipCard())}>flip card</button>
+      </Header>
+
+      <Header>
         <Title level={2}>Find the pairs</Title>
       </Header>
       <Layout>
@@ -40,7 +48,7 @@ const Home = memo(function Home() {
             <Content>
               <Row gutter={16} justify="center">
                 {range(20, 1).map((i) => (
-                  <Col>
+                  <Col key={i}>
                     <Card />
                   </Col>
                 ))}
