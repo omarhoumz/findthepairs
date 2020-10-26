@@ -1,5 +1,7 @@
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 
+import { wrapper } from 'src/store'
+
 import 'antd/dist/antd.css'
 
 const GlobalStyle = createGlobalStyle`
@@ -25,7 +27,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-export default function App({ Component, pageProps }) {
+function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
@@ -35,3 +37,5 @@ export default function App({ Component, pageProps }) {
     </>
   )
 }
+
+export default wrapper.withRedux(App)
