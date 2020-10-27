@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 
 import { CardWrapper } from './card.styled'
 
-const Card = memo(function Card({ img, isFlipped, onFlip }) {
+const Card = memo(function Card({ img, isFlipped, onClick }) {
   return (
-    <CardWrapper onClick={onFlip}>
+    <CardWrapper onClick={onClick}>
       {isFlipped ? (
         <img style={{ opacity: isFlipped ? 1 : 0 }} src={img} alt="" />
       ) : (
@@ -18,7 +18,7 @@ const Card = memo(function Card({ img, isFlipped, onFlip }) {
 Card.propTypes = {
   img: PropTypes.string,
   isFlipped: PropTypes.bool,
-  onFlip: PropTypes.func,
+  onClick: PropTypes.func,
 }
 
 export default Card

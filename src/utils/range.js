@@ -6,7 +6,7 @@
  * @returns {number[]}
  */
 function range(size, startAt = 0) {
-  return [...Array(size).keys()].map((i) => i + startAt)
+  return Array.from(Array(size).keys(), (i) => i + startAt)
 }
 
 export default range

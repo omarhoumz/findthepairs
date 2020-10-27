@@ -20,6 +20,7 @@ export const Header = styled(DHeader)`
 
 export const ContentGrid = styled(Row)`
   width: 100%;
+  padding-bottom: 2em;
 `
 
 export const Controls = styled(Space)`

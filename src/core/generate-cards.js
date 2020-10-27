@@ -3,6 +3,9 @@ import randomArray from 'src/utils/random-array'
 import range from 'src/utils/range'
 import shuffle from 'src/utils/shuffle'
 
+/**
+ * @param {number} pairs - number of cards' pairs
+ */
 function generateCards(pairs) {
   const arr = randomArray(pairs, MAX_NUM_PAIRS)
   const shuffled = shuffle([...arr, ...arr])

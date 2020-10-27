@@ -9,12 +9,12 @@ import {
   Typography,
 } from 'antd'
 import Head from 'next/head'
-import { memo } from 'react'
+import { memo, useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import Card from 'src/component/card/card'
-import generateCards from 'src/core/generate-cards'
-import { flipCard } from 'src/store/actions'
+import { DEFAULT_NUM_PAIRS } from 'src/constants'
+import { flipCard, startGame } from 'src/store/actions'
 import range from 'src/utils/range'
 
 import { Container, ContentGrid, Controls, Header } from './home.styled'
@@ -31,7 +31,24 @@ const Home = memo(function Home() {
   const score = useSelector((state) => state.score)
   const pairs = useSelector((state) => state.pairs)
   const tries = useSelector((state) => state.tries)
+  const cards = useSelector((state) => state.cards)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(startGame({ pairs: DEFAULT_NUM_PAIRS }))
+  }, [])
+
+  const handleRestartGame = useCallback(() => {
+    dispatch(startGame())
+  }, [])
+
+  const handlePairsChange = useCallback((value) => {
+    dispatch(startGame({ pairs: value }))
+  }, [])
+
+  const handleCardClick = useCallback((value) => {
+    dispatch(flipCard({ cardId: value }))
+  }, [])
 
   return (
     <Container>
@@ -45,15 +62,6 @@ const Home = memo(function Home() {
       </Head>
 
       <Header>
-        <Space>
-          <button onClick={() => dispatch(flipCard())}>flip card</button>
-          <div>{pairs}</div>
-          <div>{score}</div>
-          <div>{tries}</div>
-        </Space>
-      </Header>
-
-      <Header>
         <Title level={2}>Find the pairs</Title>
       </Header>
       <Layout>
@@ -61,9 +69,13 @@ const Home = memo(function Home() {
           <Col xs={22} md={14}>
             <Content>
               <Row gutter={16} justify="center">
-                {generateCards(pairs).map(({ id, pairId }) => (
+                {cards.map(({ id, pairId, flipped }) => (
                   <Col key={id}>
-                    <Card img={getImgUrl(pairId)} isFlipped />
+                    <Card
+                      img={getImgUrl(pairId)}
+                      isFlipped={flipped}
+                      onClick={() => handleCardClick(id)}
+                    />
                   </Col>
                 ))}
               </Row>
@@ -83,7 +95,11 @@ const Home = memo(function Home() {
 
                 <Space size={20}>
                   <Title level={5}>Size</Title>
-                  <Select defaultValue={pairs} style={{ width: 120 }}>
+                  <Select
+                    value={pairs}
+                    onChange={handlePairsChange}
+                    style={{ width: 120 }}
+                  >
                     {range(21, 1).map((index) => (
                       <Option key={index} value={index}>
                         {index} {index == 1 ? 'Pair' : 'Pairs'}
@@ -91,7 +107,7 @@ const Home = memo(function Home() {
                     ))}
                   </Select>
                 </Space>
-                <Button type="primary" size="large">
+                <Button type="primary" size="large" onClick={handleRestartGame}>
                   Restart
                 </Button>
               </Controls>
