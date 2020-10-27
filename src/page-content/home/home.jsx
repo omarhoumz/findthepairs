@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Card from 'src/component/card/card'
 import generateCards from 'src/core/generate-cards'
 import { flipCard } from 'src/store/actions'
-import { range } from 'src/utils/range'
+import range from 'src/utils/range'
 
 import { Container, ContentGrid, Controls, Header } from './home.styled'
 
@@ -61,9 +61,9 @@ const Home = memo(function Home() {
           <Col xs={22} md={14}>
             <Content>
               <Row gutter={16} justify="center">
-                {generateCards(pairs).map((i) => (
-                  <Col key={i}>
-                    <Card img={getImgUrl(i)} />
+                {generateCards(pairs).map(({ id, pairId }) => (
+                  <Col key={id}>
+                    <Card img={getImgUrl(pairId)} isFlipped />
                   </Col>
                 ))}
               </Row>
