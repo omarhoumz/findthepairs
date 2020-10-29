@@ -23,10 +23,7 @@ const Home = memo(function Home() {
 
   return (
     <Container>
-      <Head>
-        <DefaultHead />
-      </Head>
-
+      <DefaultHead />
       <Header>
         <Title level={2}>Find the pairs</Title>
       </Header>
