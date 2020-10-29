@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 
 import { DEFAULT_NUM_PAIRS } from 'src/constants'
 import { startGame } from 'src/store/actions'
+import DefaultHead from '../head/default-head'
 
 import { Container, ContentGrid, Header, PageSider } from './home.styled'
 import CardsGrid from './sections/cards-grid'
@@ -23,12 +24,7 @@ const Home = memo(function Home() {
   return (
     <Container>
       <Head>
-        <title>Find the pairs</title>
-        <link rel='icon' href='/favicon.ico' />
-        <link
-          href='https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap'
-          rel='stylesheet'
-        />
+        <DefaultHead />
       </Head>
 
       <Header>
