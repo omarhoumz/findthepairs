@@ -23,7 +23,7 @@ export const CardWrapper = styled(BaseCard).attrs({
   font-size: 50px;
 
   border-radius: 4px;
-  background-color: #1890ff;
+  background-color: var(--color-primary);
   color: #ffffff;
   box-shadow: 0px 4px 30px rgba(8, 55, 72, 0.21);
 

@@ -5,6 +5,10 @@ import { wrapper } from 'src/store'
 import 'antd/dist/antd.css'
 
 const GlobalStyle = createGlobalStyle`
+  :root {
+    --color-primary: #1890FF;
+  }
+
   html,
   body {
     padding: 0;
