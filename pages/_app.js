@@ -1,41 +1,16 @@
-import { createGlobalStyle, ThemeProvider } from 'styled-components'
-
-import { wrapper } from 'src/store'
+import { ThemeProvider } from 'styled-components'
 
 import 'antd/dist/antd.css'
 
-const GlobalStyle = createGlobalStyle`
-  :root {
-    --color-primary: #1890FF;
-  }
-
-  html,
-  body {
-    padding: 0;
-    margin: 0;
-    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  }
-
-  body {
-    background: linear-gradient(110.99deg, #fdfbfb 0%, #ebedee 98.71%);
-  }
-
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  * {
-    box-sizing: border-box;
-  }
-`
+import { wrapper } from 'src/store'
+import GlobalStyle from 'src/theme/global-styles'
+import colors from 'src/theme/colors'
 
 function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <ThemeProvider theme={{}}>
+      <ThemeProvider theme={{ colors }}>
         <Component {...pageProps} />
       </ThemeProvider>
     </>
