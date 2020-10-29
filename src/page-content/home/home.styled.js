@@ -1,7 +1,7 @@
-import { Layout, Typography, Row, Space } from 'antd'
+import { Layout, Row } from 'antd'
+import Sider from 'antd/lib/layout/Sider'
 import styled from 'styled-components'
 
-const { Title } = Typography
 const { Header: DHeader } = Layout
 
 export const Container = styled(Layout)`
@@ -23,23 +23,7 @@ export const ContentGrid = styled(Row)`
   padding-bottom: 2em;
 `
 
-export const Controls = styled(Space)`
-  background: #fbfbfb;
-  border-radius: 4px;
-  width: 100%;
-  padding: 12px 16px;
-
-  .ant-typography,
-  .ant-divider {
-    margin-bottom: 0;
-    color: #232527;
-  }
-
-  .ant-divider {
-    margin-top: 0;
-  }
-`
-
-export const ScoreText = styled(Typography.Text)`
-  color: var(--color-primary) !important;
+export const PageSider = styled(Sider)`
+  background-color: transparent;
+  margin: auto;
 `

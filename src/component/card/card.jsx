@@ -21,7 +21,7 @@ const Card = memo(function Card({ img, state, onClick, isDisabled }) {
       break
 
     case CARD_STATES.FLIPPED:
-      body = <img src={img} alt="" />
+      body = <img src={img} alt='' />
       break
 
     default:
