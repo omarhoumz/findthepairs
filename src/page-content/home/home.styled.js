@@ -39,3 +39,7 @@ export const Controls = styled(Space)`
     margin-top: 0;
   }
 `
+
+export const ScoreText = styled(Typography.Text)`
+  color: var(--color-primary) !important;
+`

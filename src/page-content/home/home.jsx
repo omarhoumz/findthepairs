@@ -17,7 +17,13 @@ import { DEFAULT_NUM_PAIRS } from 'src/constants'
 import { flipCard, startGame } from 'src/store/actions'
 import range from 'src/utils/range'
 
-import { Container, ContentGrid, Controls, Header } from './home.styled'
+import {
+  Container,
+  ContentGrid,
+  Controls,
+  Header,
+  ScoreText,
+} from './home.styled'
 
 const { Title } = Typography
 const { Content, Sider } = Layout
@@ -32,6 +38,7 @@ const Home = memo(function Home() {
   const pairs = useSelector((state) => state.pairs)
   const tries = useSelector((state) => state.tries)
   const cards = useSelector((state) => state.cards)
+  const locked = useSelector((state) => state.locked)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -47,6 +54,7 @@ const Home = memo(function Home() {
   }, [])
 
   const handleCardClick = useCallback((value) => {
+    if (locked) return
     dispatch(flipCard({ cardId: value }))
   }, [])
 
@@ -69,11 +77,11 @@ const Home = memo(function Home() {
           <Col xs={22} md={14}>
             <Content>
               <Row gutter={16} justify="center">
-                {cards.map(({ id, pairId, flipped }) => (
+                {cards.map(({ id, pairId, state }) => (
                   <Col key={id}>
                     <Card
                       img={getImgUrl(pairId)}
-                      isFlipped={flipped}
+                      state={state}
                       onClick={() => handleCardClick(id)}
                     />
                   </Col>
@@ -88,7 +96,9 @@ const Home = memo(function Home() {
             >
               <Controls direction="vertical" size={24}>
                 <Title level={4}>Score</Title>
-                <Title level={2}>{score} / 10</Title>
+                <Title level={2}>
+                  <ScoreText>{score}</ScoreText> / {pairs}
+                </Title>
                 <Title level={5}>Tries: {tries}</Title>
                 <Divider />
                 <Title level={4}>Options</Title>
@@ -98,7 +108,7 @@ const Home = memo(function Home() {
                   <Select
                     value={pairs}
                     onChange={handlePairsChange}
-                    style={{ width: 120 }}
+                    style={{ minWidth: 120 }}
                   >
                     {range(21, 1).map((index) => (
                       <Option key={index} value={index}>
