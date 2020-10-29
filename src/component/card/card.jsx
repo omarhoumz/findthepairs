@@ -9,12 +9,12 @@ export const CARD_STATES = {
   HIDDEN: 'HIDDEN',
 }
 
-const Card = memo(function Card({ img, state, onClick }) {
+const Card = memo(function Card({ img, state, onClick, isDisabled }) {
   if (state === CARD_STATES.HIDDEN) {
     return <BaseCard />
   }
-  let body = null
 
+  let body = null
   switch (state) {
     case CARD_STATES.IDLE:
       body = <div>?</div>
@@ -29,7 +29,15 @@ const Card = memo(function Card({ img, state, onClick }) {
       break
   }
 
-  return <CardWrapper onClick={onClick}>{body}</CardWrapper>
+  return (
+    <CardWrapper
+      aria-disabled={Boolean(isDisabled)}
+      disabled={Boolean(isDisabled)}
+      onClick={onClick}
+    >
+      {body}
+    </CardWrapper>
+  )
 })
 
 Card.propTypes = {

@@ -23,14 +23,26 @@ export const CardWrapper = styled(BaseCard).attrs({
   font-size: 50px;
 
   border-radius: 4px;
-  background-color: var(--color-primary);
+  overflow: hidden;
+  background-color: var(--color-primary-500);
   color: #ffffff;
   box-shadow: 0px 4px 30px rgba(8, 55, 72, 0.21);
 
-  cursor: pointer;
+  transition: 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition-property: background-color;
+
+  :not(:disabled) {
+    cursor: pointer;
+  }
+
+  :hover:not(:disabled),
+  :focus {
+    background-color: var(--color-primary-300);
+  }
 
   :focus {
     outline-offset: 4px;
+    outline-color: var(--color-primary-500);
   }
 
   > * {
