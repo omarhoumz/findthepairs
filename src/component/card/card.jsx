@@ -1,18 +1,35 @@
-import React, { memo, useCallback, useState } from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 
-import { CardWrapper } from './card.styled'
+import { BaseCard, CardWrapper } from './card.styled'
 
-const Card = memo(function Card({ img, isFlipped, onClick }) {
-  return (
-    <CardWrapper onClick={onClick}>
-      {isFlipped ? (
-        <img style={{ opacity: isFlipped ? 1 : 0 }} src={img} alt="" />
-      ) : (
-        <div style={{ opacity: isFlipped ? 0 : 1 }}>?</div>
-      )}
-    </CardWrapper>
-  )
+export const CARD_STATES = {
+  IDLE: 'IDLE',
+  FLIPPED: 'FLIPPED',
+  HIDDEN: 'HIDDEN',
+}
+
+const Card = memo(function Card({ img, state, onClick }) {
+  if (state === CARD_STATES.HIDDEN) {
+    return <BaseCard />
+  }
+  let body = null
+
+  switch (state) {
+    case CARD_STATES.IDLE:
+      body = <div>?</div>
+      break
+
+    case CARD_STATES.FLIPPED:
+      body = <img src={img} alt="" />
+      break
+
+    default:
+      body = null
+      break
+  }
+
+  return <CardWrapper onClick={onClick}>{body}</CardWrapper>
 })
 
 Card.propTypes = {

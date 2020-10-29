@@ -1,19 +1,25 @@
 import styled from 'styled-components'
 
-export const CardWrapper = styled.button.attrs({ type: 'button' })`
+export const BaseCard = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 145.75px;
+  width: 137px;
+  margin-bottom: 20px;
+`
+
+export const CardWrapper = styled(BaseCard).attrs({
+  as: 'button',
+  type: 'button',
+})`
   /** button resets */
   border: none;
   padding: 0;
 
   /** styles */
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 145.75px;
-  width: 137px;
-
-  margin-bottom: 20px;
   font-size: 50px;
 
   border-radius: 4px;
