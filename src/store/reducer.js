@@ -2,7 +2,7 @@ import { CARD_STATES } from 'src/component/card/card'
 import { DEFAULT_NUM_PAIRS } from 'src/constants'
 import generateCards from 'src/core/generate-cards'
 import { actionTypes } from './actions'
-import { getFlippedCards } from './utils'
+import { flippedCardsCountSelector } from './selectors'
 
 const initialState = {
   score: 0,
@@ -34,9 +34,7 @@ function reducer(state = initialState, action) {
     case actionTypes.FLIP_CARD: {
       if (!action.payload.cardId || state.locked) return state
 
-      const numberOfFlippedCards = getFlippedCards(state.cards).length
-
-      if (numberOfFlippedCards >= 2) return state
+      if (flippedCardsCountSelector(state) >= 2) return state
 
       const newCards = state.cards.map((card) =>
         card.id == action.payload.cardId

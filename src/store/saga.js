@@ -1,16 +1,15 @@
 import { takeEvery, put, select, all, delay } from 'redux-saga/effects'
-import { actionTypes } from './actions'
-import { getFlippedCards } from './utils'
 
-const getCards = (state) => state.cards
+import { actionTypes } from './actions'
+import { flippedCardsCountSelector, flippedCardsSelector } from './selectors'
+
 const getLock = (state) => state.locked
 
 function* flipCard() {
   const locked = yield select(getLock)
   if (!locked) {
-    const cards = yield select(getCards)
-    const flippedCards = getFlippedCards(cards)
-    const flippedCardsCount = flippedCards.length
+    const flippedCards = yield select(flippedCardsSelector)
+    const flippedCardsCount = yield select(flippedCardsCountSelector)
 
     if (flippedCardsCount >= 2) {
       yield put({ type: actionTypes.LOCK })
